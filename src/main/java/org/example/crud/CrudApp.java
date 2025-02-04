@@ -14,7 +14,7 @@ public class CrudApp extends Application {
 
     private TableView<Persona> tabla;
     private TextField txtNombre, txtDireccion, txtTelefonos;
-    private Button btnGuardar, btnActualizar;
+    private Button btnGuardar, btnActualizar, btnEliminar;
     private Persona personaSeleccionada;
 
     @Override
@@ -36,13 +36,12 @@ public class CrudApp extends Application {
             String[] telefonosArray = txtTelefonos.getText().split(",");
             PersonaDAO.insertarPersona(nombre, direccion, List.of(telefonosArray));
 
-            cargarPersonas(); // Refrescar la tabla
+            cargarPersonas();
             limpiarCampos();
         });
 
-        // Botón para actualizar
         btnActualizar = new Button("Actualizar");
-        btnActualizar.setDisable(true); // Deshabilitado hasta que se seleccione un registro
+        btnActualizar.setDisable(true);
         btnActualizar.setOnAction(e -> {
             if (personaSeleccionada != null) {
                 personaSeleccionada.setNombre(txtNombre.getText());
@@ -50,6 +49,17 @@ public class CrudApp extends Application {
                 personaSeleccionada.setTelefonos(List.of(txtTelefonos.getText().split(",")));
 
                 PersonaDAO.actualizarPersona(personaSeleccionada);
+                cargarPersonas();
+                limpiarCampos();
+            }
+        });
+
+        // Botón para eliminar persona
+        btnEliminar = new Button("Eliminar");
+        btnEliminar.setDisable(true);
+        btnEliminar.setOnAction(e -> {
+            if (personaSeleccionada != null) {
+                PersonaDAO.eliminarPersona(personaSeleccionada.getId());
                 cargarPersonas();
                 limpiarCampos();
             }
@@ -68,11 +78,10 @@ public class CrudApp extends Application {
         tabla.getColumns().addAll(colNombre, colDireccion, colTelefonos);
         tabla.setOnMouseClicked(e -> seleccionarPersona());
 
-        // Cargar datos en la tabla
         cargarPersonas();
 
         // Diseño de la ventana
-        VBox layout = new VBox(10, lblNombre, txtNombre, lblDireccion, txtDireccion, lblTelefonos, txtTelefonos, btnGuardar, btnActualizar, tabla);
+        VBox layout = new VBox(10, lblNombre, txtNombre, lblDireccion, txtDireccion, lblTelefonos, txtTelefonos, btnGuardar, btnActualizar, btnEliminar, tabla);
         Scene scene = new Scene(layout, 500, 500);
 
         primaryStage.setTitle("CRUD con JavaFX y SQL");
@@ -93,6 +102,7 @@ public class CrudApp extends Application {
             txtDireccion.setText(personaSeleccionada.getDireccion());
             txtTelefonos.setText(String.join(",", personaSeleccionada.getTelefonos()));
             btnActualizar.setDisable(false);
+            btnEliminar.setDisable(false);
         }
     }
 
@@ -101,6 +111,7 @@ public class CrudApp extends Application {
         txtDireccion.clear();
         txtTelefonos.clear();
         btnActualizar.setDisable(true);
+        btnEliminar.setDisable(true);
         personaSeleccionada = null;
     }
 

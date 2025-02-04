@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PersonaDAO {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/miBaseDeDatos?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/baseDeDatosCRUD?useSSL=false&serverTimezone=UTC";
     private static final String USUARIO = "root";
     private static final String CONTRASEÑA = "Hg.11";
 
@@ -117,4 +117,16 @@ public class PersonaDAO {
                 e.printStackTrace();
             }
         }
+
+    public static void eliminarPersona(int id) {
+        try (Connection conn = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA)) {
+            String sql = "DELETE FROM personas WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
