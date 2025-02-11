@@ -15,4 +15,8 @@ public class Motocicleta extends Vehiculo {
     public void setnDeCilindros(int nDeCilindros) {
         this.nDeCilindros = nDeCilindros;
     }
+
+    public void moverse() {
+        System.out.println("Moverse sobre 2 ruedas");
+    }
 }

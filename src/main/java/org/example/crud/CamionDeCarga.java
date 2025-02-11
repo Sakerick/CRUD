@@ -15,4 +15,8 @@ public class CamionDeCarga extends Vehiculo {
     public void setCapacidadDeCarga(int capacidadDeCarga) {
         this.capacidadDeCarga = capacidadDeCarga;
     }
+
+    public void moverse() {
+        System.out.println("Moverse sobre 4 ruedas");
+    }
 }

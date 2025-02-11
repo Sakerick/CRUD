@@ -55,7 +55,12 @@ public class VehiculoDAO {
                         rs.getString("marca"),
                         rs.getString("modelo"),
                         rs.getInt("año")
-                );
+                ) {
+                    @Override
+                    public void moverse() {
+
+                    }
+                };
                 lista.add(v);
             }
         } catch (SQLException e) {

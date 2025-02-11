@@ -1,6 +1,6 @@
 package org.example.crud;
 
-public class Vehiculo {
+public abstract class Vehiculo {
     private int id;
     private int personaId;  // Relación con la persona
     private String tipo;
@@ -26,6 +26,8 @@ public class Vehiculo {
     public int getAño() { return año; }
 
     public void setPersonaId(int personaId) { this.personaId = personaId; }
+
+    public abstract void moverse();
 }
 
 

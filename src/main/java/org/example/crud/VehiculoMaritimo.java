@@ -7,4 +7,7 @@ public class VehiculoMaritimo extends Vehiculo {
     public VehiculoMaritimo(int id, int personaId, String tipo, String marca, String modelo, int año) {
         super(id, personaId, tipo, marca, modelo, año);
     }
+    public void moverse() {
+        System.out.println("Moverse sobre por el agua");
+    }
 }

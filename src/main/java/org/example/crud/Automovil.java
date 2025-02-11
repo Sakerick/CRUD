@@ -17,4 +17,8 @@ public class Automovil extends Vehiculo {
         this.numPuertas = nDePuertas;
     }
 
+    public void moverse(){
+        System.out.println("Moverse sobre 4 ruedas");
+    }
+
 }
